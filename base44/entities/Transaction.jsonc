@@ -1,0 +1,25 @@
+{
+  "name": "Transaction",
+  "type": "object",
+  "properties": {
+    "owner_email": { "type": "string" },
+    "account_id": { "type": "string" },
+    "account_number": { "type": "string" },
+    "direction": { "type": "string", "enum": ["in", "out"], "enumColors": ["green", "red"] },
+    "amount": { "type": "number" },
+    "currency": { "type": "string", "default": "THB" },
+    "counterparty": { "type": "string" },
+    "counterparty_account": { "type": "string" },
+    "reference": { "type": "string" },
+    "channel": { "type": "string", "enum": ["mobile", "web", "branch", "api", "batch", "system"], "enumColors": ["blue", "purple", "gray", "yellow", "pink", "gray"] },
+    "status": { "type": "string", "enum": ["pending", "settled", "failed", "reversed"], "enumColors": ["yellow", "green", "red", "gray"] },
+    "posted_at": { "type": "string" }
+  },
+  "required": ["account_id", "amount"],
+  "rls": {
+    "read": { "$or": [{ "created_by_id": "{{user.id}}" }, { "user_condition": { "role": "admin" } }] },
+    "create": { "created_by_id": "{{user.id}}" },
+    "update": { "$or": [{ "created_by_id": "{{user.id}}" }, { "user_condition": { "role": "admin" } }] },
+    "delete": { "$or": [{ "created_by_id": "{{user.id}}" }, { "user_condition": { "role": "admin" } }] }
+  }
+}

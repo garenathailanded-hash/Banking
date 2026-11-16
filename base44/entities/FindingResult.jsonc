@@ -1,0 +1,12 @@
+{
+  "name": "FindingResult",
+  "type": "object",
+  "properties": {
+    "finding_code": { "type": "string" },
+    "status": { "type": "string", "enum": ["not_tested", "detected", "missed", "false_positive"], "enumColors": ["gray", "green", "red", "yellow"], "default": "not_tested" },
+    "scanner_label": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "required": ["finding_code"],
+  "rls": { "read": {}, "create": {}, "update": {}, "delete": { "user_condition": { "role": "admin" } } }
+}
